@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace SimpleCalcWithDevExpress
 {
-    public partial class GeneralNotesEditForm : Form
+    public partial class MainNotesEditForm : Form
     {
         public DataRowView View { get; private set; }
 
-        public GeneralNotesEditForm(DataRowView view)
+        public MainNotesEditForm(DataRowView view)
         {
             InitializeComponent();
 

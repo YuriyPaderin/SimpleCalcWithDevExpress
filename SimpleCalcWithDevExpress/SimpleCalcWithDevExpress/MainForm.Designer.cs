@@ -1,6 +1,6 @@
 ﻿namespace SimpleCalcWithDevExpress
 {
-    partial class GeneralWindow
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.

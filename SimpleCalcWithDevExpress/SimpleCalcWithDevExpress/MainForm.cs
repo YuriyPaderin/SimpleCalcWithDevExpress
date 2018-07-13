@@ -10,11 +10,11 @@ using SimpleCalc;
 
 namespace SimpleCalcWithDevExpress
 {
-    public partial class GeneralWindow : DevExpress.XtraEditors.XtraForm
+    public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
         private string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки" };
 
-        public GeneralWindow()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -49,7 +49,7 @@ namespace SimpleCalcWithDevExpress
         {
             var view = (DataRowView)gridView1.GetFocusedRow();
 
-            using (var editForm = new GeneralNotesEditForm(view))
+            using (var editForm = new MainNotesEditForm(view))
             {
                 editForm.ShowDialog();
             }

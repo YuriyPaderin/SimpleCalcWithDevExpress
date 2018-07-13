@@ -1,6 +1,6 @@
 ﻿namespace SimpleCalcWithDevExpress
 {
-    partial class GeneralNotesEditForm
+    partial class MainNotesEditForm
     {
         /// <summary>
         /// Required designer variable.
