@@ -173,8 +173,6 @@ D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCal
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\bin\Debug\es\DevExpress.Xpo.v16.1.resources.dll
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\bin\Debug\ja\DevExpress.Xpo.v16.1.resources.dll
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\bin\Debug\ru\DevExpress.Xpo.v16.1.resources.dll
-D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.Form1.resources
-D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.Form2.resources
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.Properties.Resources.resources
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.csproj.GenerateResource.cache
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.exe.licenses
@@ -183,3 +181,5 @@ D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCal
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.exe
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.pdb
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.csprojAssemblyReference.cache
+D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.GeneralWindow.resources
+D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.GeneralNotesEditForm.resources
