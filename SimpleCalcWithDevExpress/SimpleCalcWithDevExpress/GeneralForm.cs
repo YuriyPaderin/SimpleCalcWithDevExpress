@@ -48,9 +48,11 @@ namespace SimpleCalcWithDevExpress
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var view = (DataRowView)gridView1.GetFocusedRow();
-                
-            var editForm = new GeneralNotesEditForm(view);
-            editForm.ShowDialog();
+
+            using (var editForm = new GeneralNotesEditForm(view))
+            {
+                editForm.ShowDialog();
+            }
 
             this.notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
             dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
