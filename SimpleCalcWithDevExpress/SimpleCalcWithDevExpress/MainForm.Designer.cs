@@ -79,7 +79,7 @@
             this.cmbNotes.Location = new System.Drawing.Point(12, 71);
             this.cmbNotes.MainView = this.gridView1;
             this.cmbNotes.Name = "cmbNotes";
-            this.cmbNotes.Size = new System.Drawing.Size(931, 573);
+            this.cmbNotes.Size = new System.Drawing.Size(931, 546);
             this.cmbNotes.TabIndex = 2;
             this.cmbNotes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
