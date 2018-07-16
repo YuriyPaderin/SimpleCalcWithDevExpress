@@ -12,6 +12,8 @@ namespace SimpleCalcWithDevExpress
 {
     public partial class NoteEditForm : Form
     {
+        private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
+
         public DataRowView View { get; private set; }
 
         public NoteEditForm(DataRowView view)
@@ -66,5 +68,12 @@ namespace SimpleCalcWithDevExpress
             }
         }
 
+        private void txtErrorCode_EditValueChanged(object sender, EventArgs e)
+        {
+            var result = txtResult.EditValue ?? 0f;
+            var errorCode = (int)txtErrorCode.EditValue;
+
+            txtMessage.EditValue = errorCode == 0 ? ((double)result).ToString() : _errorTable[errorCode - 1];
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace SimpleCalcWithDevExpress
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
-        private string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки" };
+        private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
 
         public MainForm()
         {

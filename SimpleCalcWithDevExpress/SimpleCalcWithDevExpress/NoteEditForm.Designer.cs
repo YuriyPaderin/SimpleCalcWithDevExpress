@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtExpression = new DevExpress.XtraEditors.TextEdit();
             this.txtResult = new DevExpress.XtraEditors.TextEdit();
             this.lblExpression = new DevExpress.XtraEditors.LabelControl();
@@ -40,14 +41,20 @@
             this.lblErrorCode = new DevExpress.XtraEditors.LabelControl();
             this.lblMessage = new DevExpress.XtraEditors.LabelControl();
             this.txtHostName = new DevExpress.XtraEditors.TextEdit();
-            this.txtErrorCode = new DevExpress.XtraEditors.TextEdit();
             this.txtMessage = new DevExpress.XtraEditors.TextEdit();
+            this.dataBaseForSimpleCalcDataSet = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSet();
+            this.dataBaseForSimpleCalcDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.txtErrorCode = new DevExpress.XtraEditors.ImageComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtErrorCode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMessage.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtErrorCode.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
@@ -175,16 +182,6 @@
             this.txtHostName.Size = new System.Drawing.Size(392, 26);
             this.txtHostName.TabIndex = 11;
             // 
-            // txtErrorCode
-            // 
-            this.txtErrorCode.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtErrorCode.Location = new System.Drawing.Point(24, 370);
-            this.txtErrorCode.Name = "txtErrorCode";
-            this.txtErrorCode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtErrorCode.Properties.Appearance.Options.UseFont = true;
-            this.txtErrorCode.Size = new System.Drawing.Size(392, 26);
-            this.txtErrorCode.TabIndex = 12;
-            // 
             // txtMessage
             // 
             this.txtMessage.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -196,14 +193,43 @@
             this.txtMessage.Size = new System.Drawing.Size(392, 26);
             this.txtMessage.TabIndex = 13;
             // 
-            // GeneralNotesEditForm
+            // dataBaseForSimpleCalcDataSet
+            // 
+            this.dataBaseForSimpleCalcDataSet.DataSetName = "DataBaseForSimpleCalcDataSet";
+            this.dataBaseForSimpleCalcDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataBaseForSimpleCalcDataSetBindingSource
+            // 
+            this.dataBaseForSimpleCalcDataSetBindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
+            this.dataBaseForSimpleCalcDataSetBindingSource.Position = 0;
+            // 
+            // txtErrorCode
+            // 
+            this.txtErrorCode.Location = new System.Drawing.Point(21, 370);
+            this.txtErrorCode.Name = "txtErrorCode";
+            this.txtErrorCode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.txtErrorCode.Properties.Appearance.Options.UseFont = true;
+            this.txtErrorCode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtErrorCode.Properties.DropDownRows = 5;
+            this.txtErrorCode.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("<Ошибок нет>", 0, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Вы ввели неизвестную операцию.", 1, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверный формат строки.", 2, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверное соотношение цифр и операций.", 3, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неизвестный тип ошибки.", 4, -1)});
+            this.txtErrorCode.Size = new System.Drawing.Size(395, 26);
+            this.txtErrorCode.TabIndex = 14;
+            this.txtErrorCode.EditValueChanged += new System.EventHandler(this.txtErrorCode_EditValueChanged);
+            // 
+            // NoteEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(445, 555);
-            this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtErrorCode);
+            this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtHostName);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblErrorCode);
@@ -217,7 +243,7 @@
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.txtExpression);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "GeneralNotesEditForm";
+            this.Name = "NoteEditForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ChoiceDataDialog";
@@ -226,8 +252,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtErrorCode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMessage.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtErrorCode.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,7 +276,10 @@
         private DevExpress.XtraEditors.LabelControl lblErrorCode;
         private DevExpress.XtraEditors.LabelControl lblMessage;
         private DevExpress.XtraEditors.TextEdit txtHostName;
-        private DevExpress.XtraEditors.TextEdit txtErrorCode;
         private DevExpress.XtraEditors.TextEdit txtMessage;
+        private System.Windows.Forms.BindingSource dataBaseForSimpleCalcDataSetBindingSource;
+        private DataBaseForSimpleCalcDataSet dataBaseForSimpleCalcDataSet;
+        private System.Windows.Forms.BindingSource notesBindingSource;
+        private DevExpress.XtraEditors.ImageComboBoxEdit txtErrorCode;
     }
 }
