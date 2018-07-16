@@ -79,11 +79,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainNotesEditForm.cs">
+    <Compile Include="NoteEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainNotesEditForm.Designer.cs">
-      <DependentUpon>MainNotesEditForm.cs</DependentUpon>
+    <Compile Include="NoteEditForm.Designer.cs">
+      <DependentUpon>NoteEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MathOperation.cs" />
     <Compile Include="ParsingItem.cs" />
@@ -92,8 +92,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainNotesEditForm.resx">
-      <DependentUpon>MainNotesEditForm.cs</DependentUpon>
+    <EmbeddedResource Include="NoteEditForm.resx">
+      <DependentUpon>NoteEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

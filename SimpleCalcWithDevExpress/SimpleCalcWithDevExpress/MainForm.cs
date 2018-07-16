@@ -39,7 +39,7 @@ namespace SimpleCalcWithDevExpress
                 var expression = txtExpression.EditValue.ToString();
                 var message = errorCode == 0 ? result.ToString() : _errorTable[errorCode - 1];
 
-                txtExpression.EditValue = errorCode == 0 ? txtExpression.EditValue + " = " + result.ToString() : _errorTable[errorCode - 1];
+                txtExpression.EditValue = errorCode == 0 ? expression + " = " + result.ToString() : _errorTable[errorCode - 1];
 
                 this.dataBaseForSimpleCalcDataSet.Notes.AddNotesRow(Guid.NewGuid(), expression, result, DateTime.Now, "localhost", errorCode, message);
             }
@@ -49,13 +49,16 @@ namespace SimpleCalcWithDevExpress
         {
             var view = (DataRowView)gridView1.GetFocusedRow();
 
-            using (var editForm = new MainNotesEditForm(view))
+            using (var editForm = new NoteEditForm(view))
             {
                 editForm.ShowDialog();
-            }
 
-            this.notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
-            dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
+                if(editForm.DialogResult == DialogResult.OK)
+                {
+                    this.notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
+                    dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
+                }
+            }
         }
     }
 }
