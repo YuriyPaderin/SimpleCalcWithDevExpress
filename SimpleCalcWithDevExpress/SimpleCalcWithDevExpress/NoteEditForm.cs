@@ -24,20 +24,22 @@ namespace SimpleCalcWithDevExpress
             View = view;
         }
 
-        private int ValidateForm()
+        private string ValidateForm()
         {
             var expressionIsEmpty = !(txtExpression.EditValue != null && txtExpression.EditValue.ToString().Length > 0);
             var dateAndTimeIsEmpty = !(txtDateAndTime.EditValue != null && txtDateAndTime.EditValue.ToString().Length > 0);
             var hostNameIsEmpty = !(txtHostName.EditValue != null && txtHostName.EditValue.ToString().Length > 0);
 
             if (expressionIsEmpty)
-                return 1;
-            if (dateAndTimeIsEmpty)
-                return 2;
-            if (hostNameIsEmpty)
-                return 3;
+                return "Полe \"Expression\" обзательно для заполнения";
 
-            return 0;
+            if (dateAndTimeIsEmpty)
+                return "Полe \"DateAndTime\" обзательно для заполнения";
+
+            if (hostNameIsEmpty)
+                return "Полe \"HostName\" обзательно для заполнения";
+
+            return "";
         }
 
         private void SaveChanges()
@@ -59,27 +61,23 @@ namespace SimpleCalcWithDevExpress
             txtDateAndTime.EditValue = View.Row["DateAndTime"];
             txtHostName.EditValue = View.Row["HostName"];
             txtErrorCode.EditValue = View.Row["ErrorCode"];
+
+            if ((int)txtErrorCode.EditValue != 0)
+                txtResult.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            switch(ValidateForm())
+            var errorMessage = ValidateForm();
+
+            if (String.IsNullOrEmpty(errorMessage))
             {
-                case 0:
-                    SaveChanges();
-                    break;
-                case 1:
-                    MessageBox.Show("Полe \"Expression\" обзательно для заполнения");
-                    this.DialogResult = DialogResult.None;
-                    break;
-                case 2:
-                    MessageBox.Show("Полe \"DateAndTime\" обзательно для заполнения");
-                    this.DialogResult = DialogResult.None;
-                    break;
-                case 3:
-                    MessageBox.Show("Полe \"HostName\" обзательно для заполнения");
-                    this.DialogResult = DialogResult.None;
-                    break;
+                SaveChanges();
+            }
+            else
+            {
+                MessageBox.Show(errorMessage, "Error");
+                this.DialogResult = DialogResult.None;
             }
         }
 
@@ -88,7 +86,15 @@ namespace SimpleCalcWithDevExpress
             var result = txtResult.EditValue ?? 0f;
             var errorCode = (int)txtErrorCode.EditValue;
 
-            _message = errorCode == 0 ? ((double)result).ToString() : _errorTable[errorCode - 1];
+            if(errorCode == 0)
+            {
+                _message = ((double)result).ToString();
+                txtResult.Enabled = true;
+            }
+            else
+            {
+                _message = _errorTable[errorCode - 1];
+            }
         }
     }
 }
