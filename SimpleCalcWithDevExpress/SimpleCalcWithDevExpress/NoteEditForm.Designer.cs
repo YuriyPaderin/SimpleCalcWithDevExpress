@@ -38,10 +38,8 @@
             this.lblDateAndTime = new DevExpress.XtraEditors.LabelControl();
             this.txtDateAndTime = new DevExpress.XtraEditors.TextEdit();
             this.lblHostName = new DevExpress.XtraEditors.LabelControl();
-            this.lblErrorCode = new DevExpress.XtraEditors.LabelControl();
             this.lblMessage = new DevExpress.XtraEditors.LabelControl();
             this.txtHostName = new DevExpress.XtraEditors.TextEdit();
-            this.txtMessage = new DevExpress.XtraEditors.TextEdit();
             this.dataBaseForSimpleCalcDataSet = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSet();
             this.dataBaseForSimpleCalcDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -50,7 +48,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtMessage.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
@@ -103,7 +100,7 @@
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSave.Location = new System.Drawing.Point(24, 506);
+            this.btnSave.Location = new System.Drawing.Point(21, 420);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(193, 23);
             this.btnSave.TabIndex = 4;
@@ -116,7 +113,7 @@
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(223, 506);
+            this.btnCancel.Location = new System.Drawing.Point(223, 420);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(193, 23);
             this.btnCancel.TabIndex = 5;
@@ -152,24 +149,14 @@
             this.lblHostName.TabIndex = 8;
             this.lblHostName.Text = "HostName";
             // 
-            // lblErrorCode
-            // 
-            this.lblErrorCode.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblErrorCode.Appearance.Options.UseFont = true;
-            this.lblErrorCode.Location = new System.Drawing.Point(24, 345);
-            this.lblErrorCode.Name = "lblErrorCode";
-            this.lblErrorCode.Size = new System.Drawing.Size(72, 19);
-            this.lblErrorCode.TabIndex = 9;
-            this.lblErrorCode.Text = "ErrorCode";
-            // 
             // lblMessage
             // 
             this.lblMessage.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblMessage.Appearance.Options.UseFont = true;
-            this.lblMessage.Location = new System.Drawing.Point(24, 423);
+            this.lblMessage.Location = new System.Drawing.Point(24, 345);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(59, 19);
-            this.lblMessage.TabIndex = 10;
+            this.lblMessage.TabIndex = 9;
             this.lblMessage.Text = "Message";
             // 
             // txtHostName
@@ -181,17 +168,6 @@
             this.txtHostName.Properties.Appearance.Options.UseFont = true;
             this.txtHostName.Size = new System.Drawing.Size(392, 26);
             this.txtHostName.TabIndex = 11;
-            // 
-            // txtMessage
-            // 
-            this.txtMessage.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtMessage.EditValue = "";
-            this.txtMessage.Location = new System.Drawing.Point(24, 448);
-            this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtMessage.Properties.Appearance.Options.UseFont = true;
-            this.txtMessage.Size = new System.Drawing.Size(392, 26);
-            this.txtMessage.TabIndex = 13;
             // 
             // dataBaseForSimpleCalcDataSet
             // 
@@ -213,26 +189,24 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.txtErrorCode.Properties.DropDownRows = 5;
             this.txtErrorCode.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("<Ошибок нет>", 0, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("<Вывести результат>", 0, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Вы ввели неизвестную операцию.", 1, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверный формат строки.", 2, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверное соотношение цифр и операций.", 3, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неизвестный тип ошибки.", 4, -1)});
             this.txtErrorCode.Size = new System.Drawing.Size(395, 26);
             this.txtErrorCode.TabIndex = 14;
-            this.txtErrorCode.EditValueChanged += new System.EventHandler(this.txtErrorCode_EditValueChanged);
+            this.txtErrorCode.EditValueChanged += new System.EventHandler(this.txtMessage_EditValueChanged);
             // 
             // NoteEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(445, 555);
+            this.ClientSize = new System.Drawing.Size(445, 468);
             this.Controls.Add(this.txtErrorCode);
-            this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtHostName);
             this.Controls.Add(this.lblMessage);
-            this.Controls.Add(this.lblErrorCode);
             this.Controls.Add(this.lblHostName);
             this.Controls.Add(this.txtDateAndTime);
             this.Controls.Add(this.lblDateAndTime);
@@ -252,7 +226,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtMessage.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
@@ -273,10 +246,8 @@
         private DevExpress.XtraEditors.LabelControl lblDateAndTime;
         private DevExpress.XtraEditors.TextEdit txtDateAndTime;
         private DevExpress.XtraEditors.LabelControl lblHostName;
-        private DevExpress.XtraEditors.LabelControl lblErrorCode;
         private DevExpress.XtraEditors.LabelControl lblMessage;
         private DevExpress.XtraEditors.TextEdit txtHostName;
-        private DevExpress.XtraEditors.TextEdit txtMessage;
         private System.Windows.Forms.BindingSource dataBaseForSimpleCalcDataSetBindingSource;
         private DataBaseForSimpleCalcDataSet dataBaseForSimpleCalcDataSet;
         private System.Windows.Forms.BindingSource notesBindingSource;

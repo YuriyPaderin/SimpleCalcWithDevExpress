@@ -13,6 +13,7 @@ namespace SimpleCalcWithDevExpress
     public partial class NoteEditForm : Form
     {
         private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
+        private string _message;
 
         public DataRowView View { get; private set; }
 
@@ -23,14 +24,20 @@ namespace SimpleCalcWithDevExpress
             View = view;
         }
 
-        private bool ValidateForm()
+        private int ValidateForm()
         {
-            var expressionIsNull = (txtExpression.EditValue != null && txtExpression.EditValue.ToString().Length > 0);
-            var dateAndTimeIsNull = (txtDateAndTime.EditValue != null && txtDateAndTime.EditValue.ToString().Length > 0);
-            var hostNameIsNull = (txtHostName.EditValue != null && txtHostName.EditValue.ToString().Length > 0);
+            var expressionIsEmpty = !(txtExpression.EditValue != null && txtExpression.EditValue.ToString().Length > 0);
+            var dateAndTimeIsEmpty = !(txtDateAndTime.EditValue != null && txtDateAndTime.EditValue.ToString().Length > 0);
+            var hostNameIsEmpty = !(txtHostName.EditValue != null && txtHostName.EditValue.ToString().Length > 0);
 
-            var result = (expressionIsNull && dateAndTimeIsNull && hostNameIsNull);
-            return result;
+            if (expressionIsEmpty)
+                return 1;
+            if (dateAndTimeIsEmpty)
+                return 2;
+            if (hostNameIsEmpty)
+                return 3;
+
+            return 0;
         }
 
         private void SaveChanges()
@@ -41,7 +48,7 @@ namespace SimpleCalcWithDevExpress
             View.Row["DateAndTime"] = txtDateAndTime.EditValue;
             View.Row["HostName"] = txtHostName.EditValue;
             View.Row["ErrorCode"] = txtErrorCode.EditValue;
-            View.Row["Message"] = txtMessage.EditValue;
+            View.Row["Message"] = _message;
             View.EndEdit();
         }
 
@@ -52,28 +59,36 @@ namespace SimpleCalcWithDevExpress
             txtDateAndTime.EditValue = View.Row["DateAndTime"];
             txtHostName.EditValue = View.Row["HostName"];
             txtErrorCode.EditValue = View.Row["ErrorCode"];
-            txtMessage.EditValue = View.Row["Message"];
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(ValidateForm())
+            switch(ValidateForm())
             {
-                SaveChanges();
-            }
-            else
-            {
-                MessageBox.Show("Поля \"Expression\", \"DateAndTime\" и \"HostName\" обзательны для заполнения");
-                this.DialogResult = DialogResult.None;
+                case 0:
+                    SaveChanges();
+                    break;
+                case 1:
+                    MessageBox.Show("Полe \"Expression\" обзательно для заполнения");
+                    this.DialogResult = DialogResult.None;
+                    break;
+                case 2:
+                    MessageBox.Show("Полe \"DateAndTime\" обзательно для заполнения");
+                    this.DialogResult = DialogResult.None;
+                    break;
+                case 3:
+                    MessageBox.Show("Полe \"HostName\" обзательно для заполнения");
+                    this.DialogResult = DialogResult.None;
+                    break;
             }
         }
 
-        private void txtErrorCode_EditValueChanged(object sender, EventArgs e)
+        private void txtMessage_EditValueChanged(object sender, EventArgs e)
         {
             var result = txtResult.EditValue ?? 0f;
             var errorCode = (int)txtErrorCode.EditValue;
 
-            txtMessage.EditValue = errorCode == 0 ? ((double)result).ToString() : _errorTable[errorCode - 1];
+            _message = errorCode == 0 ? ((double)result).ToString() : _errorTable[errorCode - 1];
         }
     }
 }

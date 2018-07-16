@@ -39,9 +39,14 @@ namespace SimpleCalcWithDevExpress
                 var expression = txtExpression.EditValue.ToString();
                 var message = errorCode == 0 ? result.ToString() : _errorTable[errorCode - 1];
 
-                txtExpression.EditValue = errorCode == 0 ? expression + " = " + result.ToString() : _errorTable[errorCode - 1];
+                if (errorCode == 0)
+                    txtResult.EditValue = result.ToString();
+                else
+                    MessageBox.Show(_errorTable[errorCode - 1], "Error");
 
                 this.dataBaseForSimpleCalcDataSet.Notes.AddNotesRow(Guid.NewGuid(), expression, result, DateTime.Now, "localhost", errorCode, message);
+                this.notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
+                dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
             }
         }
 

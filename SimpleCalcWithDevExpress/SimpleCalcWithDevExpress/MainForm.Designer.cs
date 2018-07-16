@@ -40,20 +40,24 @@
             this.DateAndTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.notesTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter();
+            this.txtResult = new DevExpress.XtraEditors.TextEdit();
+            this.lblExpression = new DevExpress.XtraEditors.LabelControl();
+            this.lblResult = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbNotes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
             // 
-            this.txtExpression.Location = new System.Drawing.Point(12, 12);
+            this.txtExpression.Location = new System.Drawing.Point(12, 39);
             this.txtExpression.Name = "txtExpression";
             this.txtExpression.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtExpression.Properties.Appearance.Options.UseFont = true;
-            this.txtExpression.Size = new System.Drawing.Size(769, 26);
+            this.txtExpression.Size = new System.Drawing.Size(391, 26);
             this.txtExpression.TabIndex = 0;
             // 
             // btnEval
@@ -61,7 +65,7 @@
             this.btnEval.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnEval.Appearance.Options.UseFont = true;
             this.btnEval.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEval.Location = new System.Drawing.Point(787, 10);
+            this.btnEval.Location = new System.Drawing.Point(787, 37);
             this.btnEval.Name = "btnEval";
             this.btnEval.Size = new System.Drawing.Size(75, 28);
             this.btnEval.TabIndex = 1;
@@ -72,7 +76,7 @@
             // 
             this.cmbNotes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmbNotes.DataSource = this.notesBindingSource2;
-            this.cmbNotes.Location = new System.Drawing.Point(12, 44);
+            this.cmbNotes.Location = new System.Drawing.Point(12, 71);
             this.cmbNotes.MainView = this.gridView1;
             this.cmbNotes.Name = "cmbNotes";
             this.cmbNotes.Size = new System.Drawing.Size(931, 573);
@@ -131,7 +135,7 @@
             this.btnEdit.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnEdit.Appearance.Options.UseFont = true;
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit.Location = new System.Drawing.Point(868, 10);
+            this.btnEdit.Location = new System.Drawing.Point(868, 37);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 28);
             this.btnEdit.TabIndex = 3;
@@ -142,16 +146,48 @@
             // 
             this.notesTableAdapter.ClearBeforeFill = true;
             // 
-            // GeneralWindow
+            // txtResult
+            // 
+            this.txtResult.Location = new System.Drawing.Point(409, 39);
+            this.txtResult.Name = "txtResult";
+            this.txtResult.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtResult.Properties.Appearance.Options.UseFont = true;
+            this.txtResult.Size = new System.Drawing.Size(372, 26);
+            this.txtResult.TabIndex = 4;
+            // 
+            // lblExpression
+            // 
+            this.lblExpression.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblExpression.Appearance.Options.UseFont = true;
+            this.lblExpression.Location = new System.Drawing.Point(12, 20);
+            this.lblExpression.Name = "lblExpression";
+            this.lblExpression.Size = new System.Drawing.Size(83, 19);
+            this.lblExpression.TabIndex = 5;
+            this.lblExpression.Text = "Выражение";
+            // 
+            // lblResult
+            // 
+            this.lblResult.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblResult.Appearance.Options.UseFont = true;
+            this.lblResult.Location = new System.Drawing.Point(409, 20);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(73, 19);
+            this.lblResult.TabIndex = 6;
+            this.lblResult.Text = "Результат";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 629);
+            this.Controls.Add(this.lblResult);
+            this.Controls.Add(this.lblExpression);
+            this.Controls.Add(this.txtResult);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.cmbNotes);
             this.Controls.Add(this.btnEval);
             this.Controls.Add(this.txtExpression);
-            this.Name = "GeneralWindow";
+            this.Name = "MainForm";
             this.Text = "SimpleCalcWithDevExpress";
             this.Load += new System.EventHandler(this.GeneralForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).EndInit();
@@ -159,7 +195,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -176,6 +214,9 @@
         private System.Windows.Forms.BindingSource notesBindingSource2;
         private DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter notesTableAdapter;
         private DevExpress.XtraGrid.Columns.GridColumn DateAndTime;
+        private DevExpress.XtraEditors.TextEdit txtResult;
+        private DevExpress.XtraEditors.LabelControl lblExpression;
+        private DevExpress.XtraEditors.LabelControl lblResult;
     }
 }
 
