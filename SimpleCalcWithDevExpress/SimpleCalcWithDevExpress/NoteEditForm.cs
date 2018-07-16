@@ -24,22 +24,22 @@ namespace SimpleCalcWithDevExpress
             View = view;
         }
 
-        private string ValidateForm()
+        private bool ValidateForm()
         {
             var expressionIsEmpty = !(txtExpression.EditValue != null && txtExpression.EditValue.ToString().Length > 0);
             var dateAndTimeIsEmpty = !(txtDateAndTime.EditValue != null && txtDateAndTime.EditValue.ToString().Length > 0);
             var hostNameIsEmpty = !(txtHostName.EditValue != null && txtHostName.EditValue.ToString().Length > 0);
 
             if (expressionIsEmpty)
-                return "Полe \"Expression\" обзательно для заполнения";
+                MessageBox.Show("Полe \"Expression\" обзательно для заполнения", "Error");
 
             if (dateAndTimeIsEmpty)
-                return "Полe \"DateAndTime\" обзательно для заполнения";
+                MessageBox.Show("Полe \"DateAndTime\" обзательно для заполнения", "Error");
 
             if (hostNameIsEmpty)
-                return "Полe \"HostName\" обзательно для заполнения";
+                MessageBox.Show("Полe \"HostName\" обзательно для заполнения");
 
-            return "";
+            return !(expressionIsEmpty || dateAndTimeIsEmpty || hostNameIsEmpty);
         }
 
         private void SaveChanges()
@@ -68,17 +68,10 @@ namespace SimpleCalcWithDevExpress
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var errorMessage = ValidateForm();
-
-            if (String.IsNullOrEmpty(errorMessage))
-            {
+            if (ValidateForm())
                 SaveChanges();
-            }
             else
-            {
-                MessageBox.Show(errorMessage, "Error");
                 this.DialogResult = DialogResult.None;
-            }
         }
 
         private void txtMessage_EditValueChanged(object sender, EventArgs e)
