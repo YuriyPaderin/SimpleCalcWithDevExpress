@@ -40,18 +40,19 @@
             this.lblHostName = new DevExpress.XtraEditors.LabelControl();
             this.lblMessage = new DevExpress.XtraEditors.LabelControl();
             this.txtHostName = new DevExpress.XtraEditors.TextEdit();
+            this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.intErrorCode = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.dataBaseForSimpleCalcDataSet = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSet();
             this.dataBaseForSimpleCalcDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.txtErrorCode = new DevExpress.XtraEditors.ImageComboBoxEdit();
+            this.notesTableAdapter1 = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intErrorCode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtErrorCode.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
@@ -73,7 +74,6 @@
             this.txtResult.Properties.Appearance.Options.UseFont = true;
             this.txtResult.Size = new System.Drawing.Size(392, 26);
             this.txtResult.TabIndex = 1;
-            this.txtResult.EditValueChanged += new System.EventHandler(this.txtResult_EditValueChanged);
             // 
             // lblExpression
             // 
@@ -170,6 +170,25 @@
             this.txtHostName.Size = new System.Drawing.Size(392, 26);
             this.txtHostName.TabIndex = 11;
             // 
+            // intErrorCode
+            // 
+            this.intErrorCode.Location = new System.Drawing.Point(21, 370);
+            this.intErrorCode.Name = "intErrorCode";
+            this.intErrorCode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.intErrorCode.Properties.Appearance.Options.UseFont = true;
+            this.intErrorCode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.intErrorCode.Properties.DropDownRows = 5;
+            this.intErrorCode.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("<Вывести результат>", 0, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Вы ввели неизвестную операцию.", 1, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверный формат строки.", 2, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверное соотношение цифр и операций.", 3, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неизвестный тип ошибки.", 4, -1)});
+            this.intErrorCode.Size = new System.Drawing.Size(395, 26);
+            this.intErrorCode.TabIndex = 14;
+            this.intErrorCode.EditValueChanged += new System.EventHandler(this.intErrorCode_EditValueChanged);
+            // 
             // dataBaseForSimpleCalcDataSet
             // 
             this.dataBaseForSimpleCalcDataSet.DataSetName = "DataBaseForSimpleCalcDataSet";
@@ -180,24 +199,9 @@
             this.dataBaseForSimpleCalcDataSetBindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
             this.dataBaseForSimpleCalcDataSetBindingSource.Position = 0;
             // 
-            // txtErrorCode
+            // notesTableAdapter1
             // 
-            this.txtErrorCode.Location = new System.Drawing.Point(21, 370);
-            this.txtErrorCode.Name = "txtErrorCode";
-            this.txtErrorCode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.txtErrorCode.Properties.Appearance.Options.UseFont = true;
-            this.txtErrorCode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtErrorCode.Properties.DropDownRows = 5;
-            this.txtErrorCode.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("<Вывести результат>", 0, -1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Вы ввели неизвестную операцию.", 1, -1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверный формат строки.", 2, -1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неверное соотношение цифр и операций.", 3, -1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Неизвестный тип ошибки.", 4, -1)});
-            this.txtErrorCode.Size = new System.Drawing.Size(395, 26);
-            this.txtErrorCode.TabIndex = 14;
-            this.txtErrorCode.EditValueChanged += new System.EventHandler(this.txtMessage_EditValueChanged);
+            this.notesTableAdapter1.ClearBeforeFill = true;
             // 
             // NoteEditForm
             // 
@@ -205,7 +209,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(445, 468);
-            this.Controls.Add(this.txtErrorCode);
+            this.Controls.Add(this.intErrorCode);
             this.Controls.Add(this.txtHostName);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblHostName);
@@ -227,10 +231,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intErrorCode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtErrorCode.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,6 +256,7 @@
         private System.Windows.Forms.BindingSource dataBaseForSimpleCalcDataSetBindingSource;
         private DataBaseForSimpleCalcDataSet dataBaseForSimpleCalcDataSet;
         private System.Windows.Forms.BindingSource notesBindingSource;
-        private DevExpress.XtraEditors.ImageComboBoxEdit txtErrorCode;
+        private DevExpress.XtraEditors.ImageComboBoxEdit intErrorCode;
+        private DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter notesTableAdapter1;
     }
 }

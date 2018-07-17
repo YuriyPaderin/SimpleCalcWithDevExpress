@@ -54,14 +54,18 @@ namespace SimpleCalcWithDevExpress
         {
             var view = (DataRowView)gridView1.GetFocusedRow();
 
-            using (var editForm = new NoteEditForm(view))
+            using (var editForm = new NoteEditForm((Guid)view["Id"]))
             {
                 editForm.ShowDialog();
 
-                if(editForm.DialogResult == DialogResult.OK)
+                if (editForm.DialogResult == DialogResult.OK)
                 {
-                    this.notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
-                    dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
+                    this.notesTableAdapter.ClearBeforeFill = false;
+                    this.notesTableAdapter.FillBy(dataBaseForSimpleCalcDataSet.Notes, (Guid)view["Id"]);
+
+                    view["Message"] = (int)view["ErrorCode"] == 0 ? view["Result"].ToString() : _errorTable[(int)view["ErrorCode"] - 1];
+
+                    this.notesTableAdapter.ClearBeforeFill = true;
                 }
             }
         }

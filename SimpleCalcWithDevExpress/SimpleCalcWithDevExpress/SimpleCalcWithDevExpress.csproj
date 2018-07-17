@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="DataBaseForSimpleCalcDataSet.cs">
       <DependentUpon>DataBaseForSimpleCalcDataSet.xsd</DependentUpon>
     </Compile>

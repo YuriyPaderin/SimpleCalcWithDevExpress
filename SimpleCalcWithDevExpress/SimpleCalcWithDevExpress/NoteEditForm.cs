@@ -13,30 +13,33 @@ namespace SimpleCalcWithDevExpress
     public partial class NoteEditForm : Form
     {
         private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
-        private string _message;
-         
-        public DataRowView View { get; private set; }
+        private DataBaseForSimpleCalcDataSet.NotesRow _row;
 
-        public NoteEditForm(DataRowView view)
+        public NoteEditForm(Guid id)
         {
             InitializeComponent();
 
-            View = view;
+            this.notesTableAdapter1.FillBy(this.dataBaseForSimpleCalcDataSet.Notes, id);
+            _row = this.dataBaseForSimpleCalcDataSet.Notes.FindById(id);
         }
 
         private void UpdateFormState()
         {
-            txtResult.Enabled = (int)txtErrorCode.EditValue == 0 ? true : false;
+            txtResult.Enabled = (int)intErrorCode.EditValue == 0 ? true : false;
         }   
 
         private bool ValidateForm()
         {
             var expressionIsEmpty = !(txtExpression.EditValue != null && txtExpression.EditValue.ToString().Length > 0);
+            var resultIsEmpty = ((int)intErrorCode.EditValue == 0 && !(txtResult.EditValue != null && txtResult.EditValue.ToString().Length > 0));
             var dateAndTimeIsEmpty = !(txtDateAndTime.EditValue != null && txtDateAndTime.EditValue.ToString().Length > 0);
             var hostNameIsEmpty = !(txtHostName.EditValue != null && txtHostName.EditValue.ToString().Length > 0);
 
             if (expressionIsEmpty)
                 MessageBox.Show("Полe \"Expression\" обзательно для заполнения", "Error");
+
+            if (resultIsEmpty)
+                MessageBox.Show("Поле \"Result\" обязательно для заполнения", "Error");
 
             if (dateAndTimeIsEmpty)
                 MessageBox.Show("Полe \"DateAndTime\" обзательно для заполнения", "Error");
@@ -44,28 +47,33 @@ namespace SimpleCalcWithDevExpress
             if (hostNameIsEmpty)
                 MessageBox.Show("Полe \"HostName\" обзательно для заполнения", "Error");
 
-            return !(expressionIsEmpty || dateAndTimeIsEmpty || hostNameIsEmpty);
+            return !(expressionIsEmpty || resultIsEmpty || dateAndTimeIsEmpty || hostNameIsEmpty);
         }
 
         private void SaveChanges()
         {
-            View.BeginEdit();
-            View.Row["Expression"] = txtExpression.EditValue;
-            View.Row["Result"] = txtResult.EditValue;
-            View.Row["DateAndTime"] = txtDateAndTime.EditValue;
-            View.Row["HostName"] = txtHostName.EditValue;
-            View.Row["ErrorCode"] = txtErrorCode.EditValue;
-            View.Row["Message"] = _message;
-            View.EndEdit();
+            _row.BeginEdit();
+            _row.Expression = (string)txtExpression.EditValue.ToString();
+            _row.Result = Double.Parse(txtResult.EditValue.ToString());
+            _row.DateAndTime = (DateTime)txtDateAndTime.EditValue;
+            _row.HostName = (string)txtHostName.EditValue;
+            _row.ErrorCode = (int)intErrorCode.EditValue;
+
+            var errorCode = (int)intErrorCode.EditValue;
+            _row.Message = errorCode == 0 ? txtResult.EditValue.ToString() : _errorTable[errorCode - 1];
+            _row.EndEdit();
+
+            this.notesTableAdapter1.Update(this.dataBaseForSimpleCalcDataSet.Notes);
+            this.dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
         }
 
         private void GeneralNotesEditForm_Load(object sender, EventArgs e)
         {
-            txtExpression.EditValue = View.Row["Expression"];
-            txtResult.EditValue = View.Row["Result"];
-            txtDateAndTime.EditValue = View.Row["DateAndTime"];
-            txtHostName.EditValue = View.Row["HostName"];
-            txtErrorCode.EditValue = View.Row["ErrorCode"];
+            txtExpression.EditValue = _row.Expression;
+            txtResult.EditValue = _row.Result;
+            txtDateAndTime.EditValue = _row.DateAndTime;
+            txtHostName.EditValue = _row.HostName;
+            intErrorCode.EditValue = _row.ErrorCode;
 
             UpdateFormState();
         }
@@ -78,19 +86,9 @@ namespace SimpleCalcWithDevExpress
                 this.DialogResult = DialogResult.None;
         }
 
-        private void txtMessage_EditValueChanged(object sender, EventArgs e)
+        private void intErrorCode_EditValueChanged(object sender, EventArgs e)
         {
-            var result = txtResult.EditValue ?? 0f;
-            var errorCode = (int)txtErrorCode.EditValue;
-
-            _message = errorCode == 0 ? ((double)result).ToString() : _errorTable[errorCode - 1];
-
             UpdateFormState();
-        }
-
-        private void txtResult_EditValueChanged(object sender, EventArgs e)
-        {
-            _message = txtResult.EditValue.ToString();
         }
     }
 }
