@@ -14,7 +14,7 @@ namespace SimpleCalcWithDevExpress
     {
         private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
         private string _message;
-
+         
         public DataRowView View { get; private set; }
 
         public NoteEditForm(DataRowView view)
@@ -23,6 +23,11 @@ namespace SimpleCalcWithDevExpress
 
             View = view;
         }
+
+        private void UpdateFormState()
+        {
+            txtResult.Enabled = (int)txtErrorCode.EditValue == 0 ? true : false;
+        }   
 
         private bool ValidateForm()
         {
@@ -37,7 +42,7 @@ namespace SimpleCalcWithDevExpress
                 MessageBox.Show("Полe \"DateAndTime\" обзательно для заполнения", "Error");
 
             if (hostNameIsEmpty)
-                MessageBox.Show("Полe \"HostName\" обзательно для заполнения");
+                MessageBox.Show("Полe \"HostName\" обзательно для заполнения", "Error");
 
             return !(expressionIsEmpty || dateAndTimeIsEmpty || hostNameIsEmpty);
         }
@@ -62,8 +67,7 @@ namespace SimpleCalcWithDevExpress
             txtHostName.EditValue = View.Row["HostName"];
             txtErrorCode.EditValue = View.Row["ErrorCode"];
 
-            if ((int)txtErrorCode.EditValue != 0)
-                txtResult.Enabled = false;
+            UpdateFormState();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -79,15 +83,14 @@ namespace SimpleCalcWithDevExpress
             var result = txtResult.EditValue ?? 0f;
             var errorCode = (int)txtErrorCode.EditValue;
 
-            if(errorCode == 0)
-            {
-                _message = ((double)result).ToString();
-                txtResult.Enabled = true;
-            }
-            else
-            {
-                _message = _errorTable[errorCode - 1];
-            }
+            _message = errorCode == 0 ? ((double)result).ToString() : _errorTable[errorCode - 1];
+
+            UpdateFormState();
+        }
+
+        private void txtResult_EditValueChanged(object sender, EventArgs e)
+        {
+            _message = txtResult.EditValue.ToString();
         }
     }
 }

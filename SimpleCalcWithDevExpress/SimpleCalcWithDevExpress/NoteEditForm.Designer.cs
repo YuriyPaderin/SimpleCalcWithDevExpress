@@ -73,6 +73,7 @@
             this.txtResult.Properties.Appearance.Options.UseFont = true;
             this.txtResult.Size = new System.Drawing.Size(392, 26);
             this.txtResult.TabIndex = 1;
+            this.txtResult.EditValueChanged += new System.EventHandler(this.txtResult_EditValueChanged);
             // 
             // lblExpression
             // 
