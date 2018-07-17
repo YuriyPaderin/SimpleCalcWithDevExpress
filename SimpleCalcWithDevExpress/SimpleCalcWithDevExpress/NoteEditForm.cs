@@ -53,11 +53,11 @@ namespace SimpleCalcWithDevExpress
         private void SaveChanges()
         {
             _row.BeginEdit();
-            _row.Expression = (string)txtExpression.EditValue.ToString();
-            _row.Result = Double.Parse(txtResult.EditValue.ToString());
-            _row.DateAndTime = (DateTime)txtDateAndTime.EditValue;
-            _row.HostName = (string)txtHostName.EditValue;
-            _row.ErrorCode = (int)intErrorCode.EditValue;
+            _row.Expression = txtExpression.EditValue.ToString();
+            _row.Result = double.Parse(txtResult.EditValue.ToString());
+            _row.DateAndTime = DateTime.Parse(txtDateAndTime.EditValue.ToString());
+            _row.HostName = txtHostName.EditValue.ToString();
+            _row.ErrorCode = int.Parse(intErrorCode.EditValue.ToString());
 
             var errorCode = (int)intErrorCode.EditValue;
             _row.Message = errorCode == 0 ? txtResult.EditValue.ToString() : _errorTable[errorCode - 1];
