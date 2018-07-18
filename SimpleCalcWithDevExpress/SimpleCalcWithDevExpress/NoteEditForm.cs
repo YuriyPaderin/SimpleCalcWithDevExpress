@@ -13,25 +13,25 @@ namespace SimpleCalcWithDevExpress
     public partial class NoteEditForm : Form
     {
         private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
-        private DataBaseForSimpleCalcDataSet.NotesRow _row;
+        private BindingSource formDataSource = new BindingSource();
 
         public NoteEditForm(Guid id)
         {
             InitializeComponent();
 
-            this.notesTableAdapter1.FillBy(this.dataBaseForSimpleCalcDataSet.Notes, id);
-            _row = this.dataBaseForSimpleCalcDataSet.Notes.FindById(id);
+            this.notesTableAdapter.FillBy(this.dataBaseForSimpleCalcDataSet.Notes, id);
+            formDataSource.DataSource = this.dataBaseForSimpleCalcDataSet.Notes.FindById(id);
         }
 
         private void UpdateFormState()
         {
-            txtResult.Enabled = (int)intErrorCode.EditValue == 0 ? true : false;
+            txtResult.Enabled = (int)cmbErrorCode.EditValue == 0 ? true : false;
         }   
 
         private bool ValidateForm()
         {
             var expressionIsEmpty = !(txtExpression.EditValue != null && txtExpression.EditValue.ToString().Length > 0);
-            var resultIsEmpty = ((int)intErrorCode.EditValue == 0 && !(txtResult.EditValue != null && txtResult.EditValue.ToString().Length > 0));
+            var resultIsEmpty = ((int)cmbErrorCode.EditValue == 0 && !(txtResult.EditValue != null && txtResult.EditValue.ToString().Length > 0));
             var dateAndTimeIsEmpty = !(txtDateAndTime.EditValue != null && txtDateAndTime.EditValue.ToString().Length > 0);
             var hostNameIsEmpty = !(txtHostName.EditValue != null && txtHostName.EditValue.ToString().Length > 0);
 
@@ -52,29 +52,18 @@ namespace SimpleCalcWithDevExpress
 
         private void SaveChanges()
         {
-            _row.BeginEdit();
-            _row.Expression = txtExpression.EditValue.ToString();
-            _row.Result = double.Parse(txtResult.EditValue.ToString());
-            _row.DateAndTime = DateTime.Parse(txtDateAndTime.EditValue.ToString());
-            _row.HostName = txtHostName.EditValue.ToString();
-            _row.ErrorCode = int.Parse(intErrorCode.EditValue.ToString());
-
-            var errorCode = (int)intErrorCode.EditValue;
-            _row.Message = errorCode == 0 ? txtResult.EditValue.ToString() : _errorTable[errorCode - 1];
-            _row.EndEdit();
-
-            this.notesTableAdapter1.Update(this.dataBaseForSimpleCalcDataSet.Notes);
+            this.notesTableAdapter.Update(this.dataBaseForSimpleCalcDataSet.Notes);
             this.dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
         }
 
         private void GeneralNotesEditForm_Load(object sender, EventArgs e)
         {
-            txtExpression.EditValue = _row.Expression;
-            txtResult.EditValue = _row.Result;
-            txtDateAndTime.EditValue = _row.DateAndTime;
-            txtHostName.EditValue = _row.HostName;
-            intErrorCode.EditValue = _row.ErrorCode;
-
+            txtExpression.DataBindings.Add("Text", formDataSource, "Expression");
+            txtResult.DataBindings.Add("Text", formDataSource, "Result");
+            txtDateAndTime.DataBindings.Add("Text", formDataSource, "DateAndTime");
+            txtHostName.DataBindings.Add("Text", formDataSource, "HostName");
+            cmbErrorCode.DataBindings.Add("Value", formDataSource, "ErrorCode");
+  
             UpdateFormState();
         }
 
@@ -86,7 +75,7 @@ namespace SimpleCalcWithDevExpress
                 this.DialogResult = DialogResult.None;
         }
 
-        private void intErrorCode_EditValueChanged(object sender, EventArgs e)
+        private void cmbErrorCode_EditValueChanged(object sender, EventArgs e)
         {
             UpdateFormState();
         }
