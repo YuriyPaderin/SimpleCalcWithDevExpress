@@ -1,17 +1,8 @@
 ﻿namespace SimpleCalcWithDevExpress
 {
-}
-namespace SimpleCalcWithDevExpress
-{
 
 
-    public partial class DataBaseForSimpleCalcDataSet
+    partial class DataBaseForSimpleCalcDataSet
     {
-    }
-}
-namespace SimpleCalcWithDevExpress {
-    
-    
-    public partial class DataBaseForSimpleCalcDataSet {
     }
 }

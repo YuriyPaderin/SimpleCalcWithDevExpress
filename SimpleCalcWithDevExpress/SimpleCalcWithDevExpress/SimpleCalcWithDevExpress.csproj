@@ -81,11 +81,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NoteEditSecondForm.cs">
+    <Compile Include="CommentEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NoteEditSecondForm.Designer.cs">
-      <DependentUpon>NoteEditSecondForm.cs</DependentUpon>
+    <Compile Include="CommentEditForm.Designer.cs">
+      <DependentUpon>CommentEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NoteEditForm.cs">
       <SubType>Form</SubType>
@@ -100,8 +100,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NoteEditSecondForm.resx">
-      <DependentUpon>NoteEditSecondForm.cs</DependentUpon>
+    <EmbeddedResource Include="CommentEditForm.resx">
+      <DependentUpon>CommentEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NoteEditForm.resx">
       <DependentUpon>NoteEditForm.cs</DependentUpon>

@@ -10,21 +10,28 @@ using System.Windows.Forms;
 
 namespace SimpleCalcWithDevExpress
 {
-    public partial class NoteEditSecondForm : Form
+    public partial class CommentEditForm : Form
     {
-        private BindingSource _formDataSource = new BindingSource();
+        private Guid _id;
+        private BindingSource _noteDataSource = new BindingSource();
+        private BindingSource _commentsDataSource = new BindingSource();
+        private DataBaseForSimpleCalcDataSet _dataSet = new DataBaseForSimpleCalcDataSet();
 
-        public NoteEditSecondForm(DataBaseForSimpleCalcDataSet.NotesDataTable notes, Guid id)
+        public CommentEditForm(DataBaseForSimpleCalcDataSet dataSet, Guid id)
         {
             InitializeComponent();
 
-            _formDataSource.DataSource = notes.FindById(id);
+            _id = id;
+            _dataSet = dataSet;
+
+            _noteDataSource.DataSource = dataSet.Notes.OrderByDescending(c => c.DateAndTime);
+            _commentsDataSource.DataSource = dataSet.Comments.Where(c => c.RowId == id);
         }
 
         private void UpdateFormState()
         {
             txtResult.Enabled = (int)cmbErrorCode.EditValue == 0 ? true : false;
-        }   
+        }
 
         private bool ValidateForm()
         {
@@ -48,27 +55,44 @@ namespace SimpleCalcWithDevExpress
             return !(expressionIsEmpty || resultIsEmpty || dateAndTimeIsEmpty || hostNameIsEmpty);
         }
 
-        private void GeneralNotesEditSecondForm_Load(object sender, EventArgs e)
+        private void SaveChanges()
         {
-            _formDataSource.Position = 0;
-            txtExpression.DataBindings.Add("Text", _formDataSource, dataBaseForSimpleCalcDataSet.Notes.ExpressionColumn.ColumnName);
-            txtResult.DataBindings.Add("Text", _formDataSource, dataBaseForSimpleCalcDataSet.Notes.ResultColumn.ColumnName);
-            txtDateAndTime.DataBindings.Add("Text", _formDataSource, dataBaseForSimpleCalcDataSet.Notes.DateAndTimeColumn.ColumnName);
-            txtHostName.DataBindings.Add("Text", _formDataSource, dataBaseForSimpleCalcDataSet.Notes.HostNameColumn.ColumnName);
-            cmbErrorCode.DataBindings.Add("Value", _formDataSource, dataBaseForSimpleCalcDataSet.Notes.ErrorCodeColumn.ColumnName);
-  
+            _noteDataSource.EndEdit();
+            _commentsDataSource.EndEdit();
+        }
+
+        private void GeneralNotesEditForm_Load(object sender, EventArgs e)
+        {
+            _noteDataSource.Position = 0;
+            txtExpression.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.ExpressionColumn.ColumnName);
+            txtResult.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.ResultColumn.ColumnName);
+            txtDateAndTime.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.DateAndTimeColumn.ColumnName);
+            txtHostName.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.HostNameColumn.ColumnName);
+            cmbErrorCode.DataBindings.Add("Value", _noteDataSource, _dataSet.Notes.ErrorCodeColumn.ColumnName);
+
+            gridControl1.DataSource = _commentsDataSource;
+
             UpdateFormState();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!ValidateForm())
+            if (ValidateForm())
+                SaveChanges();
+            else
                 this.DialogResult = DialogResult.None;
         }
 
         private void cmbErrorCode_EditValueChanged(object sender, EventArgs e)
         {
             UpdateFormState();
+        }
+
+        private void gridView2_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            var row = (DataBaseForSimpleCalcDataSet.CommentsRow)gridView2.GetFocusedDataRow();
+            row.RowId = _id; 
+            row.EndEdit();
         }
     }
 }

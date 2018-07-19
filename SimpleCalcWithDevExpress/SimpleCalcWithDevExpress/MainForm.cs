@@ -23,10 +23,18 @@ namespace SimpleCalcWithDevExpress
             row.Message =  row.ErrorCode == 0 ? row.Result.ToString() : errorTable[row.ErrorCode - 1];
         }
 
+        private void UpdateComment()
+        {
+            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridView1.GetFocusedDataRow();
+            gridControl1.DataSource = dataBaseForSimpleCalcDataSet.Comments.Where(c => c.RowId == row.Id);
+        }
+
         private void GeneralForm_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dataBaseForSimpleCalcDataSet.Notes' table. You can move, or remove it, as needed.
             notesTableAdapter.Fill(dataBaseForSimpleCalcDataSet.Notes);
+            commentsTableAdapter.Fill(dataBaseForSimpleCalcDataSet.Comments);
+
             foreach (var note in dataBaseForSimpleCalcDataSet.Notes)
             {
                 if (note.IsResultNull())
@@ -34,6 +42,9 @@ namespace SimpleCalcWithDevExpress
 
                 UpdateRow(note);
             }
+
+            gridView1.MoveFirst();
+            UpdateComment();
         }
 
         private void btnEval_Click(object sender, EventArgs e)
@@ -83,19 +94,25 @@ namespace SimpleCalcWithDevExpress
         {
             var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridView1.GetFocusedDataRow();
 
-            using (var editForm = new NoteEditSecondForm(dataBaseForSimpleCalcDataSet.Notes ,row.Id))
+            using (var editForm = new CommentEditForm(dataBaseForSimpleCalcDataSet ,row.Id))
             {
                 if (editForm.ShowDialog() == DialogResult.OK)
                 {
                     notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
-                    dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
-                    UpdateRow(row);
+                    commentsTableAdapter.Update(dataBaseForSimpleCalcDataSet.Comments);
+                    dataBaseForSimpleCalcDataSet.AcceptChanges();
+                    UpdateComment();
                 }
                 else
                 {
-                    dataBaseForSimpleCalcDataSet.Notes.RejectChanges();
+                    dataBaseForSimpleCalcDataSet.RejectChanges();
                 }
             }
+        }
+
+        private void gridView1_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
+        {
+            UpdateComment();
         }
     }
 }

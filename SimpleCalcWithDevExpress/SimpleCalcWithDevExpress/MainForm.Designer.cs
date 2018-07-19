@@ -32,7 +32,7 @@
             this.txtExpression = new DevExpress.XtraEditors.TextEdit();
             this.btnEval = new DevExpress.XtraEditors.SimpleButton();
             this.cmbNotes = new DevExpress.XtraGrid.GridControl();
-            this.notesBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataBaseForSimpleCalcDataSet = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSet();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colExpression = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -44,21 +44,30 @@
             this.lblExpression = new DevExpress.XtraEditors.LabelControl();
             this.lblResult = new DevExpress.XtraEditors.LabelControl();
             this.btnEdit2 = new DevExpress.XtraEditors.SimpleButton();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.commentsTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.CommentsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbNotes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
             // 
-            this.txtExpression.Location = new System.Drawing.Point(21, 38);
+            this.txtExpression.Location = new System.Drawing.Point(12, 38);
             this.txtExpression.Name = "txtExpression";
             this.txtExpression.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtExpression.Properties.Appearance.Options.UseFont = true;
-            this.txtExpression.Size = new System.Drawing.Size(267, 26);
+            this.txtExpression.Size = new System.Drawing.Size(269, 26);
             this.txtExpression.TabIndex = 0;
             // 
             // btnEval
@@ -76,19 +85,19 @@
             // cmbNotes
             // 
             this.cmbNotes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbNotes.DataSource = this.notesBindingSource2;
+            this.cmbNotes.DataSource = this.notesBindingSource;
             this.cmbNotes.Location = new System.Drawing.Point(12, 71);
             this.cmbNotes.MainView = this.gridView1;
             this.cmbNotes.Name = "cmbNotes";
-            this.cmbNotes.Size = new System.Drawing.Size(931, 546);
+            this.cmbNotes.Size = new System.Drawing.Size(931, 410);
             this.cmbNotes.TabIndex = 2;
             this.cmbNotes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
-            // notesBindingSource2
+            // notesBindingSource
             // 
-            this.notesBindingSource2.DataMember = "Notes";
-            this.notesBindingSource2.DataSource = this.dataBaseForSimpleCalcDataSet;
+            this.notesBindingSource.DataMember = "Notes";
+            this.notesBindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
             // 
             // dataBaseForSimpleCalcDataSet
             // 
@@ -103,9 +112,12 @@
             this.DateAndTime});
             this.gridView1.GridControl = this.cmbNotes;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.DateAndTime, DevExpress.Data.ColumnSortOrder.Descending)});
+            this.gridView1.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.gridView1_RowCellClick);
             // 
             // colExpression
             // 
@@ -170,7 +182,7 @@
             // 
             this.lblResult.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblResult.Appearance.Options.UseFont = true;
-            this.lblResult.Location = new System.Drawing.Point(278, 13);
+            this.lblResult.Location = new System.Drawing.Point(287, 13);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(73, 19);
             this.lblResult.TabIndex = 6;
@@ -188,11 +200,60 @@
             this.btnEdit2.Text = "Изменить 2";
             this.btnEdit2.Click += new System.EventHandler(this.btnEdit2_Click);
             // 
+            // gridControl1
+            // 
+            this.gridControl1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gridControl1.DataSource = this.commentsBindingSource;
+            this.gridControl1.Location = new System.Drawing.Point(12, 487);
+            this.gridControl1.MainView = this.gridView2;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(931, 130);
+            this.gridControl1.TabIndex = 9;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView2});
+            // 
+            // commentsBindingSource
+            // 
+            this.commentsBindingSource.DataMember = "Comments";
+            this.commentsBindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
+            // 
+            // gridView2
+            // 
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn3,
+            this.gridColumn4});
+            this.gridView2.GridControl = this.gridControl1;
+            this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
+            this.gridView2.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
+            this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumn3, DevExpress.Data.ColumnSortOrder.Descending)});
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.FieldName = "DateAndTime";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Комментарии";
+            this.gridColumn4.FieldName = "Comment";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 0;
+            // 
+            // commentsTableAdapter
+            // 
+            this.commentsTableAdapter.ClearBeforeFill = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 629);
+            this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.btnEdit2);
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.lblExpression);
@@ -206,10 +267,13 @@
             this.Load += new System.EventHandler(this.GeneralForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbNotes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,13 +289,19 @@
         private DevExpress.XtraGrid.Columns.GridColumn colResult;
         private DevExpress.XtraEditors.SimpleButton btnEdit1;
         private DataBaseForSimpleCalcDataSet dataBaseForSimpleCalcDataSet;
-        private System.Windows.Forms.BindingSource notesBindingSource2;
+        private System.Windows.Forms.BindingSource notesBindingSource;
         private DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter notesTableAdapter;
         private DevExpress.XtraGrid.Columns.GridColumn DateAndTime;
         private DevExpress.XtraEditors.TextEdit txtResult;
         private DevExpress.XtraEditors.LabelControl lblExpression;
         private DevExpress.XtraEditors.LabelControl lblResult;
         private DevExpress.XtraEditors.SimpleButton btnEdit2;
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private System.Windows.Forms.BindingSource commentsBindingSource;
+        private DataBaseForSimpleCalcDataSetTableAdapters.CommentsTableAdapter commentsTableAdapter;
     }
 }
 

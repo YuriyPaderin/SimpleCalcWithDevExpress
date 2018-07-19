@@ -1,6 +1,6 @@
 ﻿namespace SimpleCalcWithDevExpress
 {
-    partial class NoteEditSecondForm
+    partial class CommentEditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -44,6 +44,12 @@
             this.dataBaseForSimpleCalcDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.notesTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter();
             this.txtHostName = new DevExpress.XtraEditors.TextEdit();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.commentsTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.CommentsTableAdapter();
+            this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).BeginInit();
@@ -51,6 +57,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
@@ -66,7 +75,7 @@
             // txtResult
             // 
             this.txtResult.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtResult.Location = new System.Drawing.Point(24, 129);
+            this.txtResult.Location = new System.Drawing.Point(447, 55);
             this.txtResult.Name = "txtResult";
             this.txtResult.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtResult.Properties.Appearance.Options.UseFont = true;
@@ -87,7 +96,7 @@
             // 
             this.lblResult.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblResult.Appearance.Options.UseFont = true;
-            this.lblResult.Location = new System.Drawing.Point(24, 104);
+            this.lblResult.Location = new System.Drawing.Point(447, 30);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(43, 19);
             this.lblResult.TabIndex = 3;
@@ -99,7 +108,7 @@
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSave.Location = new System.Drawing.Point(21, 420);
+            this.btnSave.Location = new System.Drawing.Point(447, 521);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(193, 23);
             this.btnSave.TabIndex = 4;
@@ -112,7 +121,7 @@
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(223, 420);
+            this.btnCancel.Location = new System.Drawing.Point(646, 521);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(193, 23);
             this.btnCancel.TabIndex = 5;
@@ -122,7 +131,7 @@
             // 
             this.lblDateAndTime.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblDateAndTime.Appearance.Options.UseFont = true;
-            this.lblDateAndTime.Location = new System.Drawing.Point(24, 181);
+            this.lblDateAndTime.Location = new System.Drawing.Point(24, 96);
             this.lblDateAndTime.Name = "lblDateAndTime";
             this.lblDateAndTime.Size = new System.Drawing.Size(97, 19);
             this.lblDateAndTime.TabIndex = 6;
@@ -131,7 +140,7 @@
             // txtDateAndTime
             // 
             this.txtDateAndTime.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDateAndTime.Location = new System.Drawing.Point(24, 206);
+            this.txtDateAndTime.Location = new System.Drawing.Point(24, 121);
             this.txtDateAndTime.Name = "txtDateAndTime";
             this.txtDateAndTime.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtDateAndTime.Properties.Appearance.Options.UseFont = true;
@@ -142,7 +151,7 @@
             // 
             this.lblHostName.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblHostName.Appearance.Options.UseFont = true;
-            this.lblHostName.Location = new System.Drawing.Point(24, 263);
+            this.lblHostName.Location = new System.Drawing.Point(447, 96);
             this.lblHostName.Name = "lblHostName";
             this.lblHostName.Size = new System.Drawing.Size(73, 19);
             this.lblHostName.TabIndex = 8;
@@ -152,7 +161,7 @@
             // 
             this.lblMessage.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblMessage.Appearance.Options.UseFont = true;
-            this.lblMessage.Location = new System.Drawing.Point(24, 345);
+            this.lblMessage.Location = new System.Drawing.Point(24, 167);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(59, 19);
             this.lblMessage.TabIndex = 9;
@@ -160,7 +169,7 @@
             // 
             // cmbErrorCode
             // 
-            this.cmbErrorCode.Location = new System.Drawing.Point(21, 370);
+            this.cmbErrorCode.Location = new System.Drawing.Point(24, 192);
             this.cmbErrorCode.Name = "cmbErrorCode";
             this.cmbErrorCode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.cmbErrorCode.Properties.Appearance.Options.UseFont = true;
@@ -194,19 +203,67 @@
             // txtHostName
             // 
             this.txtHostName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtHostName.Location = new System.Drawing.Point(24, 288);
+            this.txtHostName.Location = new System.Drawing.Point(447, 121);
             this.txtHostName.Name = "txtHostName";
             this.txtHostName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtHostName.Properties.Appearance.Options.UseFont = true;
             this.txtHostName.Size = new System.Drawing.Size(392, 26);
             this.txtHostName.TabIndex = 11;
             // 
-            // NoteEditSecondForm
+            // gridControl1
+            // 
+            this.gridControl1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gridControl1.DataSource = this.commentsBindingSource;
+            this.gridControl1.Location = new System.Drawing.Point(24, 239);
+            this.gridControl1.MainView = this.gridView2;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(815, 276);
+            this.gridControl1.TabIndex = 15;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView2});
+            // 
+            // gridView2
+            // 
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn3,
+            this.gridColumn4});
+            this.gridView2.GridControl = this.gridControl1;
+            this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
+            this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumn3, DevExpress.Data.ColumnSortOrder.Descending)});
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.FieldName = "DateAndTime";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Комментарии";
+            this.gridColumn4.FieldName = "Comment";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 0;
+            // 
+            // commentsTableAdapter
+            // 
+            this.commentsTableAdapter.ClearBeforeFill = true;
+            // 
+            // commentsBindingSource
+            // 
+            this.commentsBindingSource.DataMember = "Comments";
+            this.commentsBindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
+            // 
+            // CommentEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(445, 468);
+            this.ClientSize = new System.Drawing.Size(862, 556);
+            this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.cmbErrorCode);
             this.Controls.Add(this.txtHostName);
             this.Controls.Add(this.lblMessage);
@@ -220,11 +277,11 @@
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.txtExpression);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "NoteEditSecondForm";
+            this.Name = "CommentEditForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ChoiceDataDialog 2";
-            this.Load += new System.EventHandler(this.GeneralNotesEditSecondForm_Load);
+            this.Text = "ChoiceDataDialog";
+            this.Load += new System.EventHandler(this.GeneralNotesEditForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).EndInit();
@@ -232,6 +289,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,5 +314,11 @@
         private DevExpress.XtraEditors.ImageComboBoxEdit cmbErrorCode;
         private DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter notesTableAdapter;
         private DevExpress.XtraEditors.TextEdit txtHostName;
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DataBaseForSimpleCalcDataSetTableAdapters.CommentsTableAdapter commentsTableAdapter;
+        private System.Windows.Forms.BindingSource commentsBindingSource;
     }
 }
