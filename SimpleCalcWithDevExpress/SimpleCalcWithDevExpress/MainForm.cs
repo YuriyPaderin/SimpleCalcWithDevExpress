@@ -12,11 +12,15 @@ namespace SimpleCalcWithDevExpress
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
-        private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
-
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void UpdateRow(DataBaseForSimpleCalcDataSet.NotesRow row)
+        {
+            string[] errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
+            row.Message =  row.ErrorCode == 0 ? row.Result.ToString() : errorTable[row.ErrorCode - 1];
         }
 
         private void GeneralForm_Load(object sender, EventArgs e)
@@ -25,8 +29,10 @@ namespace SimpleCalcWithDevExpress
             this.notesTableAdapter.Fill(this.dataBaseForSimpleCalcDataSet.Notes);
             foreach (var note in this.dataBaseForSimpleCalcDataSet.Notes)
             {
-                if (!note.IsResultNull() || note.ErrorCode != 0)
-                    note.Message = note.ErrorCode == 0 ? note.Result.ToString() : _errorTable[note.ErrorCode - 1];
+                if (note.IsResultNull())
+                    note.Result = 0;
+
+                UpdateRow(note);
             }
         }
 
@@ -34,17 +40,22 @@ namespace SimpleCalcWithDevExpress
         {
             if (txtExpression.EditValue != null)
             {
+                var row = this.dataBaseForSimpleCalcDataSet.Notes.NewNotesRow();
+                row.Id = Guid.NewGuid();
                 int errorCode;
-                var result = new Calculator().Evaluate(txtExpression.EditValue.ToString(), out errorCode);
-                var expression = txtExpression.EditValue.ToString();
-                var message = errorCode == 0 ? result.ToString() : _errorTable[errorCode - 1];
+                row.Result = new Calculator().Evaluate(txtExpression.EditValue.ToString(), out errorCode);
+                row.ErrorCode = errorCode;
+                row.HostName = "localhost";
+                row.DateAndTime = DateTime.Now;
 
-                if (errorCode == 0)
-                    txtResult.EditValue = result.ToString();
+                UpdateRow(row);
+
+                if (row.ErrorCode == 0)
+                    txtResult.EditValue = row.Result.ToString();
                 else
-                    MessageBox.Show(_errorTable[errorCode - 1], "Error");
+                    MessageBox.Show(row.Message.ToString(), "Error");
 
-                this.dataBaseForSimpleCalcDataSet.Notes.AddNotesRow(Guid.NewGuid(), expression, result, DateTime.Now, "localhost", errorCode, message);
+                this.dataBaseForSimpleCalcDataSet.Notes.AddNotesRow(row);
                 this.notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
                 dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
             }
@@ -52,18 +63,18 @@ namespace SimpleCalcWithDevExpress
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var view = (DataRowView)gridView1.GetFocusedRow();
+            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridView1.GetFocusedDataRow();
 
-            using (var editForm = new NoteEditForm((Guid)view["Id"]))
+            using (var editForm = new NoteEditForm(row.Id))
             {
                 editForm.ShowDialog();
 
                 if (editForm.DialogResult == DialogResult.OK)
                 {
                     this.notesTableAdapter.ClearBeforeFill = false;
-                    this.notesTableAdapter.FillBy(dataBaseForSimpleCalcDataSet.Notes, (Guid)view["Id"]);
+                    this.notesTableAdapter.FillBy(dataBaseForSimpleCalcDataSet.Notes, row.Id);
 
-                    view["Message"] = (int)view["ErrorCode"] == 0 ? view["Result"].ToString() : _errorTable[(int)view["ErrorCode"] - 1];
+                    UpdateRow(row);
 
                     this.notesTableAdapter.ClearBeforeFill = true;
                 }

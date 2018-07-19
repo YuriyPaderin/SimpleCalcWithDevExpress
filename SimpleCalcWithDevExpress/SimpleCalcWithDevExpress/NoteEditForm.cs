@@ -12,7 +12,6 @@ namespace SimpleCalcWithDevExpress
 {
     public partial class NoteEditForm : Form
     {
-        private static string[] _errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
         private BindingSource formDataSource = new BindingSource();
 
         public NoteEditForm(Guid id)
@@ -20,12 +19,12 @@ namespace SimpleCalcWithDevExpress
             InitializeComponent();
 
             this.notesTableAdapter.FillBy(this.dataBaseForSimpleCalcDataSet.Notes, id);
-            formDataSource.DataSource = this.dataBaseForSimpleCalcDataSet.Notes.FindById(id);
+            formDataSource.DataSource = this.dataBaseForSimpleCalcDataSet.Notes;
         }
 
         private void UpdateFormState()
         {
-            txtResult.Enabled = (int)cmbErrorCode.EditValue == 0 ? true : false;
+            txtResult.Enabled = cmbErrorCode.EditValue == 0 ? true : false;
         }   
 
         private bool ValidateForm()
@@ -52,17 +51,19 @@ namespace SimpleCalcWithDevExpress
 
         private void SaveChanges()
         {
+            formDataSource.EndEdit();
             this.notesTableAdapter.Update(this.dataBaseForSimpleCalcDataSet.Notes);
             this.dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
         }
 
         private void GeneralNotesEditForm_Load(object sender, EventArgs e)
         {
-            txtExpression.DataBindings.Add("Text", formDataSource, "Expression");
-            txtResult.DataBindings.Add("Text", formDataSource, "Result");
-            txtDateAndTime.DataBindings.Add("Text", formDataSource, "DateAndTime");
-            txtHostName.DataBindings.Add("Text", formDataSource, "HostName");
-            cmbErrorCode.DataBindings.Add("Value", formDataSource, "ErrorCode");
+            formDataSource.Position = 0;
+            txtExpression.DataBindings.Add("Text", formDataSource, dataBaseForSimpleCalcDataSet.Notes.ExpressionColumn.ColumnName);
+            txtResult.DataBindings.Add("Text", formDataSource, dataBaseForSimpleCalcDataSet.Notes.ResultColumn.ColumnName);
+            txtDateAndTime.DataBindings.Add("Text", formDataSource, dataBaseForSimpleCalcDataSet.Notes.DateAndTimeColumn.ColumnName);
+            txtHostName.DataBindings.Add("Text", formDataSource, dataBaseForSimpleCalcDataSet.Notes.HostNameColumn.ColumnName);
+            cmbErrorCode.DataBindings.Add("Value", formDataSource, dataBaseForSimpleCalcDataSet.Notes.ErrorCodeColumn.ColumnName);
   
             UpdateFormState();
         }

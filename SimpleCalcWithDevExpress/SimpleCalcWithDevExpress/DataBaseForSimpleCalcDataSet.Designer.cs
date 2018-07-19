@@ -420,7 +420,7 @@ namespace SimpleCalcWithDevExpress {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public NotesRow AddNotesRow(System.Guid Id, string Expression, double Result, System.DateTime DateAndTime, string HostName, int ErrorCode, string Message) {
-                NotesRow rowNotesRow = ((NotesRow)(this.NewRow()));
+                NotesRow rowNotesRow = ((NotesRow)(this.NewNotesRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
                         Expression,
@@ -500,7 +500,7 @@ namespace SimpleCalcWithDevExpress {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public NotesRow NewNotesRow() {
-                return ((NotesRow)(this.NewRow()));
+                return ((NotesRow)(this.NewNotesRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -39,23 +39,18 @@
             this.txtDateAndTime = new DevExpress.XtraEditors.TextEdit();
             this.lblHostName = new DevExpress.XtraEditors.LabelControl();
             this.lblMessage = new DevExpress.XtraEditors.LabelControl();
-            this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmbErrorCode = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.dataBaseForSimpleCalcDataSet = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSet();
             this.dataBaseForSimpleCalcDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.notesTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter();
-            this.sharedDictionaryStorage1 = new DevExpress.XtraSpellChecker.SharedDictionaryStorage(this.components);
             this.txtHostName = new DevExpress.XtraEditors.TextEdit();
-            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbErrorCode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
@@ -207,11 +202,6 @@
             this.txtHostName.Size = new System.Drawing.Size(392, 26);
             this.txtHostName.TabIndex = 11;
             // 
-            // bindingSource
-            // 
-            this.bindingSource.DataMember = "Notes";
-            this.bindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
-            // 
             // NoteEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,12 +229,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateAndTime.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbErrorCode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHostName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,11 +252,8 @@
         private DevExpress.XtraEditors.LabelControl lblMessage;
         private System.Windows.Forms.BindingSource dataBaseForSimpleCalcDataSetBindingSource;
         private DataBaseForSimpleCalcDataSet dataBaseForSimpleCalcDataSet;
-        private System.Windows.Forms.BindingSource notesBindingSource;
         private DevExpress.XtraEditors.ImageComboBoxEdit cmbErrorCode;
         private DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter notesTableAdapter;
-        private DevExpress.XtraSpellChecker.SharedDictionaryStorage sharedDictionaryStorage1;
         private DevExpress.XtraEditors.TextEdit txtHostName;
-        private System.Windows.Forms.BindingSource bindingSource;
     }
 }
