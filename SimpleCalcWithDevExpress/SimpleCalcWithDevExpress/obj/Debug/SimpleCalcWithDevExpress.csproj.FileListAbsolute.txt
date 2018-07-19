@@ -191,3 +191,4 @@ D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCal
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\bin\Debug\es\DevExpress.XtraSpellChecker.v16.1.resources.dll
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\bin\Debug\ja\DevExpress.XtraSpellChecker.v16.1.resources.dll
 D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\bin\Debug\ru\DevExpress.XtraSpellChecker.v16.1.resources.dll
+D:\SimpleCalc-master\SimpleCalcWithDexExpress\SimpleCalcWithDevExpress\SimpleCalcWithDevExpress\obj\Debug\SimpleCalcWithDevExpress.NoteEditSecondForm.resources

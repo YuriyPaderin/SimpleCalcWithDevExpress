@@ -24,7 +24,7 @@ namespace SimpleCalcWithDevExpress
 
         private void UpdateFormState()
         {
-            txtResult.Enabled = cmbErrorCode.EditValue == 0 ? true : false;
+            txtResult.Enabled = (int)cmbErrorCode.EditValue == 0 ? true : false;
         }   
 
         private bool ValidateForm()

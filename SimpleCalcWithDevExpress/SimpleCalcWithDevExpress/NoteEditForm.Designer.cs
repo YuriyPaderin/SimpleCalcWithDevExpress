@@ -198,7 +198,6 @@
             this.txtHostName.Name = "txtHostName";
             this.txtHostName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtHostName.Properties.Appearance.Options.UseFont = true;
-            this.txtHostName.Properties.Mask.EditMask = "\\d\\d\\d\\d\\d";
             this.txtHostName.Size = new System.Drawing.Size(392, 26);
             this.txtHostName.TabIndex = 11;
             // 
