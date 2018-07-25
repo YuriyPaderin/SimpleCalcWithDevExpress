@@ -17,16 +17,15 @@ namespace SimpleCalcWithDevExpress
             InitializeComponent();
         }
 
-        private void UpdateRow(DataBaseForSimpleCalcDataSet.NotesRow row)
+        private void UpdateNotesRow(DataBaseForSimpleCalcDataSet.NotesRow notesRow)
         {
             string[] errorTable = { "Вы ввели неизвестную операцию.", "Неверный формат строки.", "Неверное соотношение цифр и операций.", "Неизвестный тип ошибки." };
-            row.Message =  row.ErrorCode == 0 ? row.Result.ToString() : errorTable[row.ErrorCode - 1];
+            notesRow.Message =  notesRow.ErrorCode == 0 ? notesRow.Result.ToString() : errorTable[notesRow.ErrorCode - 1];
         }
 
-        private void UpdateComment()
+        private void UpdateCommentsRow(DataBaseForSimpleCalcDataSet.NotesRow notesRow)
         {
-            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridView1.GetFocusedDataRow();
-            gridControl1.DataSource = dataBaseForSimpleCalcDataSet.Comments.Where(c => c.RowId == row.Id);
+            cmbComments.DataSource = dataBaseForSimpleCalcDataSet.Comments.Where(commentsRow => commentsRow.NoteId == notesRow.Id);
         }
 
         private void GeneralForm_Load(object sender, EventArgs e)
@@ -40,79 +39,63 @@ namespace SimpleCalcWithDevExpress
                 if (note.IsResultNull())
                     note.Result = 0;
 
-                UpdateRow(note);
+                UpdateNotesRow(note);
             }
 
-            gridView1.MoveFirst();
-            UpdateComment();
+            var notesRow = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetDataRow(1);
+            UpdateCommentsRow(notesRow);
         }
 
         private void btnEval_Click(object sender, EventArgs e)
         {
             if (txtExpression.EditValue != null)
             {
-                var row = dataBaseForSimpleCalcDataSet.Notes.NewNotesRow();
-                row.Id = Guid.NewGuid();
-                int errorCode;
-                row.Result = new Calculator().Evaluate(txtExpression.EditValue.ToString(), out errorCode);
-                row.ErrorCode = errorCode;
-                row.HostName = "localhost";
-                row.DateAndTime = DateTime.Now;
+                var notesRow = dataBaseForSimpleCalcDataSet.Notes.NewNotesRow();
+                notesRow.Id = Guid.NewGuid();
+                notesRow.Result = new Calculator().Evaluate(txtExpression.EditValue.ToString(), out int errorCode);
+                notesRow.ErrorCode = errorCode;
+                notesRow.HostName = "localhost";
+                notesRow.DateAndTime = DateTime.Now;
 
-                UpdateRow(row);
+                UpdateNotesRow(notesRow);
 
-                if (row.ErrorCode == 0)
-                    txtResult.EditValue = row.Result.ToString();
+                if (notesRow.ErrorCode == 0)
+                    txtResult.EditValue = notesRow.Result.ToString();
                 else
-                    MessageBox.Show(row.Message.ToString(), "Error");
+                    MessageBox.Show(notesRow.Message.ToString(), "Error");
 
-                dataBaseForSimpleCalcDataSet.Notes.AddNotesRow(row);
+                dataBaseForSimpleCalcDataSet.Notes.AddNotesRow(notesRow);
                 notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
                 dataBaseForSimpleCalcDataSet.Notes.AcceptChanges();
             }
         }
 
-        private void btnEdit1_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridView1.GetFocusedDataRow();
+            var notesRow = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetFocusedDataRow();
+            dataBaseForSimpleCalcDataSet.AcceptChanges();
 
-            using (var editForm = new NoteEditForm(row.Id))
+            using (var editForm = new CommentEditForm(dataBaseForSimpleCalcDataSet, notesRow.Id))
             {
-                if (editForm.ShowDialog() == DialogResult.OK)
-                {
-                    notesTableAdapter.ClearBeforeFill = false;
-                    notesTableAdapter.FillBy(dataBaseForSimpleCalcDataSet.Notes, row.Id);
-
-                    UpdateRow(row);
-
-                    notesTableAdapter.ClearBeforeFill = true;
-                }
-            }
-        }
-
-        private void btnEdit2_Click(object sender, EventArgs e)
-        {
-            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridView1.GetFocusedDataRow();
-
-            using (var editForm = new CommentEditForm(dataBaseForSimpleCalcDataSet ,row.Id))
-            {
-                if (editForm.ShowDialog() == DialogResult.OK)
-                {
-                    notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
-                    commentsTableAdapter.Update(dataBaseForSimpleCalcDataSet.Comments);
-                    dataBaseForSimpleCalcDataSet.AcceptChanges();
-                    UpdateComment();
-                }
-                else
-                {
+                if (editForm.ShowDialog() != DialogResult.Cancel)
                     dataBaseForSimpleCalcDataSet.RejectChanges();
-                }
+
+                UpdateNotesRow(notesRow);
+                UpdateCommentsRow(notesRow);
             }
         }
 
-        private void gridView1_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            UpdateComment();
+            notesTableAdapter.Update(dataBaseForSimpleCalcDataSet.Notes);
+            commentsTableAdapter.Update(dataBaseForSimpleCalcDataSet.Comments);
+            dataBaseForSimpleCalcDataSet.AcceptChanges();
+        }
+
+        private void gridViewNotes_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
+        {
+            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetFocusedDataRow();
+            UpdateCommentsRow(row);
         }
     }
 }

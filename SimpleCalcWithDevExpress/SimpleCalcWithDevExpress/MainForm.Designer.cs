@@ -34,19 +34,19 @@
             this.cmbNotes = new DevExpress.XtraGrid.GridControl();
             this.notesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataBaseForSimpleCalcDataSet = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSet();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewNotes = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colExpression = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colResult = new DevExpress.XtraGrid.Columns.GridColumn();
             this.DateAndTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.btnEdit1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.notesTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter();
             this.txtResult = new DevExpress.XtraEditors.TextEdit();
             this.lblExpression = new DevExpress.XtraEditors.LabelControl();
             this.lblResult = new DevExpress.XtraEditors.LabelControl();
-            this.btnEdit2 = new DevExpress.XtraEditors.SimpleButton();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
+            this.cmbComments = new DevExpress.XtraGrid.GridControl();
             this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewComments = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.commentsTableAdapter = new SimpleCalcWithDevExpress.DataBaseForSimpleCalcDataSetTableAdapters.CommentsTableAdapter();
@@ -54,11 +54,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbNotes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewNotes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewComments)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExpression
@@ -87,12 +87,12 @@
             this.cmbNotes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmbNotes.DataSource = this.notesBindingSource;
             this.cmbNotes.Location = new System.Drawing.Point(12, 71);
-            this.cmbNotes.MainView = this.gridView1;
+            this.cmbNotes.MainView = this.gridViewNotes;
             this.cmbNotes.Name = "cmbNotes";
             this.cmbNotes.Size = new System.Drawing.Size(931, 410);
             this.cmbNotes.TabIndex = 2;
             this.cmbNotes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gridViewNotes});
             // 
             // notesBindingSource
             // 
@@ -104,20 +104,20 @@
             this.dataBaseForSimpleCalcDataSet.DataSetName = "DataBaseForSimpleCalcDataSet";
             this.dataBaseForSimpleCalcDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // gridView1
+            // gridViewNotes
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridViewNotes.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colExpression,
             this.colResult,
             this.DateAndTime});
-            this.gridView1.GridControl = this.cmbNotes;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.Editable = false;
-            this.gridView1.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
-            this.gridView1.OptionsView.ShowGroupPanel = false;
-            this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            this.gridViewNotes.GridControl = this.cmbNotes;
+            this.gridViewNotes.Name = "gridViewNotes";
+            this.gridViewNotes.OptionsBehavior.Editable = false;
+            this.gridViewNotes.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
+            this.gridViewNotes.OptionsView.ShowGroupPanel = false;
+            this.gridViewNotes.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.DateAndTime, DevExpress.Data.ColumnSortOrder.Descending)});
-            this.gridView1.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.gridView1_RowCellClick);
+            this.gridViewNotes.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.gridViewNotes_RowCellClick);
             // 
             // colExpression
             // 
@@ -143,17 +143,17 @@
             this.DateAndTime.Name = "DateAndTime";
             this.DateAndTime.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             // 
-            // btnEdit1
+            // btnEdit
             // 
-            this.btnEdit1.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEdit1.Appearance.Options.UseFont = true;
-            this.btnEdit1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit1.Location = new System.Drawing.Point(717, 37);
-            this.btnEdit1.Name = "btnEdit1";
-            this.btnEdit1.Size = new System.Drawing.Size(110, 28);
-            this.btnEdit1.TabIndex = 3;
-            this.btnEdit1.Text = "Изменить 1";
-            this.btnEdit1.Click += new System.EventHandler(this.btnEdit1_Click);
+            this.btnEdit.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnEdit.Appearance.Options.UseFont = true;
+            this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEdit.Location = new System.Drawing.Point(717, 37);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(110, 28);
+            this.btnEdit.TabIndex = 3;
+            this.btnEdit.Text = "Изменить";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // notesTableAdapter
             // 
@@ -188,46 +188,46 @@
             this.lblResult.TabIndex = 6;
             this.lblResult.Text = "Результат";
             // 
-            // btnEdit2
+            // btnSave
             // 
-            this.btnEdit2.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEdit2.Appearance.Options.UseFont = true;
-            this.btnEdit2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit2.Location = new System.Drawing.Point(833, 37);
-            this.btnEdit2.Name = "btnEdit2";
-            this.btnEdit2.Size = new System.Drawing.Size(110, 28);
-            this.btnEdit2.TabIndex = 8;
-            this.btnEdit2.Text = "Изменить 2";
-            this.btnEdit2.Click += new System.EventHandler(this.btnEdit2_Click);
+            this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSave.Appearance.Options.UseFont = true;
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSave.Location = new System.Drawing.Point(833, 37);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(110, 28);
+            this.btnSave.TabIndex = 8;
+            this.btnSave.Text = "Сохранить";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // gridControl1
+            // cmbComments
             // 
-            this.gridControl1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.gridControl1.DataSource = this.commentsBindingSource;
-            this.gridControl1.Location = new System.Drawing.Point(12, 487);
-            this.gridControl1.MainView = this.gridView2;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(931, 130);
-            this.gridControl1.TabIndex = 9;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView2});
+            this.cmbComments.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmbComments.DataSource = this.commentsBindingSource;
+            this.cmbComments.Location = new System.Drawing.Point(12, 487);
+            this.cmbComments.MainView = this.gridViewComments;
+            this.cmbComments.Name = "cmbComments";
+            this.cmbComments.Size = new System.Drawing.Size(931, 130);
+            this.cmbComments.TabIndex = 9;
+            this.cmbComments.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewComments});
             // 
             // commentsBindingSource
             // 
             this.commentsBindingSource.DataMember = "Comments";
             this.commentsBindingSource.DataSource = this.dataBaseForSimpleCalcDataSet;
             // 
-            // gridView2
+            // gridViewComments
             // 
-            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridViewComments.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumn3,
             this.gridColumn4});
-            this.gridView2.GridControl = this.gridControl1;
-            this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsBehavior.Editable = false;
-            this.gridView2.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
-            this.gridView2.OptionsView.ShowGroupPanel = false;
-            this.gridView2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            this.gridViewComments.GridControl = this.cmbComments;
+            this.gridViewComments.Name = "gridViewComments";
+            this.gridViewComments.OptionsBehavior.Editable = false;
+            this.gridViewComments.OptionsEditForm.ActionOnModifiedRowChange = DevExpress.XtraGrid.Views.Grid.EditFormModifiedAction.Save;
+            this.gridViewComments.OptionsView.ShowGroupPanel = false;
+            this.gridViewComments.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumn3, DevExpress.Data.ColumnSortOrder.Descending)});
             // 
             // gridColumn3
@@ -253,12 +253,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 629);
-            this.Controls.Add(this.gridControl1);
-            this.Controls.Add(this.btnEdit2);
+            this.Controls.Add(this.cmbComments);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.lblExpression);
             this.Controls.Add(this.txtResult);
-            this.Controls.Add(this.btnEdit1);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.cmbNotes);
             this.Controls.Add(this.btnEval);
             this.Controls.Add(this.txtExpression);
@@ -269,11 +269,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbNotes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.notesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBaseForSimpleCalcDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewNotes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbComments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewComments)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,10 +284,10 @@
         private DevExpress.XtraEditors.TextEdit txtExpression;
         private DevExpress.XtraEditors.SimpleButton btnEval;
         private DevExpress.XtraGrid.GridControl cmbNotes;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewNotes;
         private DevExpress.XtraGrid.Columns.GridColumn colExpression;
         private DevExpress.XtraGrid.Columns.GridColumn colResult;
-        private DevExpress.XtraEditors.SimpleButton btnEdit1;
+        private DevExpress.XtraEditors.SimpleButton btnEdit;
         private DataBaseForSimpleCalcDataSet dataBaseForSimpleCalcDataSet;
         private System.Windows.Forms.BindingSource notesBindingSource;
         private DataBaseForSimpleCalcDataSetTableAdapters.NotesTableAdapter notesTableAdapter;
@@ -295,9 +295,9 @@
         private DevExpress.XtraEditors.TextEdit txtResult;
         private DevExpress.XtraEditors.LabelControl lblExpression;
         private DevExpress.XtraEditors.LabelControl lblResult;
-        private DevExpress.XtraEditors.SimpleButton btnEdit2;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private DevExpress.XtraEditors.SimpleButton btnSave;
+        private DevExpress.XtraGrid.GridControl cmbComments;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewComments;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private System.Windows.Forms.BindingSource commentsBindingSource;

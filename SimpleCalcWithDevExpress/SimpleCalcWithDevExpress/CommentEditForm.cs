@@ -12,20 +12,31 @@ namespace SimpleCalcWithDevExpress
 {
     public partial class CommentEditForm : Form
     {
-        private Guid _id;
         private BindingSource _noteDataSource = new BindingSource();
         private BindingSource _commentsDataSource = new BindingSource();
-        private DataBaseForSimpleCalcDataSet _dataSet = new DataBaseForSimpleCalcDataSet();
+        private DataBaseForSimpleCalcDataSet _dataSet;
+        private DataBaseForSimpleCalcDataSet.CommentsRow _commentRow;
 
         public CommentEditForm(DataBaseForSimpleCalcDataSet dataSet, Guid id)
         {
             InitializeComponent();
-
-            _id = id;
             _dataSet = dataSet;
+  
+            AddCommentRow(id);
 
-            _noteDataSource.DataSource = dataSet.Notes.OrderByDescending(c => c.DateAndTime);
-            _commentsDataSource.DataSource = dataSet.Comments.Where(c => c.RowId == id);
+            _noteDataSource.DataSource = _dataSet.Notes.Where(notesRow => notesRow.Id == id);
+            _commentsDataSource.DataSource = _dataSet.Comments.Where(commentsRow => commentsRow.NoteId == id).OrderBy(commentsRow => commentsRow.DateAndTime);
+        }
+
+        public void AddCommentRow(Guid noteId)
+        {
+            _commentRow = _dataSet.Comments.NewCommentsRow();
+            _commentRow.Id = Guid.NewGuid();
+            _commentRow.NoteId = noteId;
+            _commentRow.Comment = "<Добавить новую запись>";
+            _commentRow.DateAndTime = DateTime.Now;
+            _dataSet.Comments.AddCommentsRow(_commentRow);
+            _commentsDataSource.Add(_commentRow);
         }
 
         private void UpdateFormState()
@@ -55,32 +66,25 @@ namespace SimpleCalcWithDevExpress
             return !(expressionIsEmpty || resultIsEmpty || dateAndTimeIsEmpty || hostNameIsEmpty);
         }
 
-        private void SaveChanges()
-        {
-            _noteDataSource.EndEdit();
-            _commentsDataSource.EndEdit();
-        }
-
         private void GeneralNotesEditForm_Load(object sender, EventArgs e)
         {
-            _noteDataSource.Position = 0;
             txtExpression.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.ExpressionColumn.ColumnName);
             txtResult.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.ResultColumn.ColumnName);
             txtDateAndTime.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.DateAndTimeColumn.ColumnName);
             txtHostName.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.HostNameColumn.ColumnName);
             cmbErrorCode.DataBindings.Add("Value", _noteDataSource, _dataSet.Notes.ErrorCodeColumn.ColumnName);
 
-            gridControl1.DataSource = _commentsDataSource;
-
+            cmbComments.DataSource = _commentsDataSource;
+            
             UpdateFormState();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
-                SaveChanges();
+            if (!ValidateForm())
+                DialogResult = DialogResult.None;
             else
-                this.DialogResult = DialogResult.None;
+                _dataSet.AcceptChanges();
         }
 
         private void cmbErrorCode_EditValueChanged(object sender, EventArgs e)
@@ -88,11 +92,17 @@ namespace SimpleCalcWithDevExpress
             UpdateFormState();
         }
 
-        private void gridView2_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        private void gridViewComments_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            var row = (DataBaseForSimpleCalcDataSet.CommentsRow)gridView2.GetFocusedDataRow();
-            row.RowId = _id; 
-            row.EndEdit();
+            var index = gridViewComments.GetFocusedDataSourceRowIndex();
+
+            if (index == gridViewComments.RowCount - 1)
+                AddCommentRow(_commentRow.Id);
+        }
+
+        private void CommentEditForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _dataSet.Comments.RemoveCommentsRow(_commentRow);
         }
     }
 }
