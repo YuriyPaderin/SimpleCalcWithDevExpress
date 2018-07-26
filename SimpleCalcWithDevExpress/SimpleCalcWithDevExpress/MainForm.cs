@@ -34,6 +34,10 @@ namespace SimpleCalcWithDevExpress
             notesTableAdapter.Fill(dataBaseForSimpleCalcDataSet.Notes);
             commentsTableAdapter.Fill(dataBaseForSimpleCalcDataSet.Comments);
 
+            if (dataBaseForSimpleCalcDataSet.Notes.Rows.Count == 0)
+                return;
+
+            // TODO: Переписать поиск последней записи
             var noteRow = (DataBaseForSimpleCalcDataSet.NotesRow)dataBaseForSimpleCalcDataSet.Notes.Rows[0];
             foreach (var note in dataBaseForSimpleCalcDataSet.Notes)
             {
