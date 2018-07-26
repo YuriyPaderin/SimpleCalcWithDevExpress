@@ -34,16 +34,17 @@ namespace SimpleCalcWithDevExpress
             notesTableAdapter.Fill(dataBaseForSimpleCalcDataSet.Notes);
             commentsTableAdapter.Fill(dataBaseForSimpleCalcDataSet.Comments);
 
+            var noteRow = (DataBaseForSimpleCalcDataSet.NotesRow)dataBaseForSimpleCalcDataSet.Notes.Rows[0];
             foreach (var note in dataBaseForSimpleCalcDataSet.Notes)
             {
-                if (note.IsResultNull())
-                    note.Result = 0;
+                if (!note.IsResultNull())
+                    UpdateNotesRow(note);
 
-                UpdateNotesRow(note);
+                if (noteRow.DateAndTime < note.DateAndTime)
+                    noteRow = note;
             }
 
-            var notesRow = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetDataRow(1);
-            UpdateCommentsRow(notesRow);
+            UpdateCommentsRow(noteRow);
         }
 
         private void btnEval_Click(object sender, EventArgs e)
@@ -73,15 +74,15 @@ namespace SimpleCalcWithDevExpress
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var notesRow = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetFocusedDataRow();
-            dataBaseForSimpleCalcDataSet.AcceptChanges();
 
             using (var editForm = new CommentEditForm(dataBaseForSimpleCalcDataSet, notesRow.Id))
             {
-                if (editForm.ShowDialog() != DialogResult.Cancel)
-                    dataBaseForSimpleCalcDataSet.RejectChanges();
-
-                UpdateNotesRow(notesRow);
-                UpdateCommentsRow(notesRow);
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    dataBaseForSimpleCalcDataSet.Merge(editForm.DataSet, false, MissingSchemaAction.Add);
+                    UpdateNotesRow(notesRow);
+                    UpdateCommentsRow(notesRow);
+                }
             }
         }
 
@@ -94,8 +95,8 @@ namespace SimpleCalcWithDevExpress
 
         private void gridViewNotes_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
         {
-            var row = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetFocusedDataRow();
-            UpdateCommentsRow(row);
+            var notesRow = (DataBaseForSimpleCalcDataSet.NotesRow)gridViewNotes.GetFocusedDataRow();
+            UpdateCommentsRow(notesRow);
         }
     }
 }

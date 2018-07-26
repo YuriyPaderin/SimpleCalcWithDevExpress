@@ -14,28 +14,29 @@ namespace SimpleCalcWithDevExpress
     {
         private BindingSource _noteDataSource = new BindingSource();
         private BindingSource _commentsDataSource = new BindingSource();
-        private DataBaseForSimpleCalcDataSet _dataSet;
         private DataBaseForSimpleCalcDataSet.CommentsRow _commentRow;
+
+        public DataBaseForSimpleCalcDataSet DataSet { get; private set; }
 
         public CommentEditForm(DataBaseForSimpleCalcDataSet dataSet, Guid id)
         {
             InitializeComponent();
-            _dataSet = dataSet;
+            DataSet = (DataBaseForSimpleCalcDataSet)dataSet.Copy();
   
             AddCommentRow(id);
 
-            _noteDataSource.DataSource = _dataSet.Notes.Where(notesRow => notesRow.Id == id);
-            _commentsDataSource.DataSource = _dataSet.Comments.Where(commentsRow => commentsRow.NoteId == id).OrderBy(commentsRow => commentsRow.DateAndTime);
+            _noteDataSource.DataSource = DataSet.Notes.Where(notesRow => notesRow.Id == id);
+            _commentsDataSource.DataSource = DataSet.Comments.Where(commentsRow => commentsRow.NoteId == id).OrderBy(commentsRow => commentsRow.DateAndTime);
         }
 
         public void AddCommentRow(Guid noteId)
         {
-            _commentRow = _dataSet.Comments.NewCommentsRow();
+            _commentRow = DataSet.Comments.NewCommentsRow();
             _commentRow.Id = Guid.NewGuid();
             _commentRow.NoteId = noteId;
             _commentRow.Comment = "<Добавить новую запись>";
             _commentRow.DateAndTime = DateTime.Now;
-            _dataSet.Comments.AddCommentsRow(_commentRow);
+            DataSet.Comments.AddCommentsRow(_commentRow);
             _commentsDataSource.Add(_commentRow);
         }
 
@@ -68,11 +69,11 @@ namespace SimpleCalcWithDevExpress
 
         private void GeneralNotesEditForm_Load(object sender, EventArgs e)
         {
-            txtExpression.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.ExpressionColumn.ColumnName);
-            txtResult.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.ResultColumn.ColumnName);
-            txtDateAndTime.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.DateAndTimeColumn.ColumnName);
-            txtHostName.DataBindings.Add("Text", _noteDataSource, _dataSet.Notes.HostNameColumn.ColumnName);
-            cmbErrorCode.DataBindings.Add("Value", _noteDataSource, _dataSet.Notes.ErrorCodeColumn.ColumnName);
+            txtExpression.DataBindings.Add("Text", _noteDataSource, DataSet.Notes.ExpressionColumn.ColumnName);
+            txtResult.DataBindings.Add("Text", _noteDataSource, DataSet.Notes.ResultColumn.ColumnName);
+            txtDateAndTime.DataBindings.Add("Text", _noteDataSource, DataSet.Notes.DateAndTimeColumn.ColumnName);
+            txtHostName.DataBindings.Add("Text", _noteDataSource, DataSet.Notes.HostNameColumn.ColumnName);
+            cmbErrorCode.DataBindings.Add("Value", _noteDataSource, DataSet.Notes.ErrorCodeColumn.ColumnName);
 
             cmbComments.DataSource = _commentsDataSource;
             
@@ -84,7 +85,7 @@ namespace SimpleCalcWithDevExpress
             if (!ValidateForm())
                 DialogResult = DialogResult.None;
             else
-                _dataSet.AcceptChanges();
+                DataSet.Comments.RemoveCommentsRow(_commentRow);
         }
 
         private void cmbErrorCode_EditValueChanged(object sender, EventArgs e)
@@ -97,12 +98,7 @@ namespace SimpleCalcWithDevExpress
             var index = gridViewComments.GetFocusedDataSourceRowIndex();
 
             if (index == gridViewComments.RowCount - 1)
-                AddCommentRow(_commentRow.Id);
-        }
-
-        private void CommentEditForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _dataSet.Comments.RemoveCommentsRow(_commentRow);
+                AddCommentRow(_commentRow.NoteId);
         }
     }
 }

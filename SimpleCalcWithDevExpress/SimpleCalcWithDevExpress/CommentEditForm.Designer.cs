@@ -282,7 +282,6 @@
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ChoiceDataDialog";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommentEditForm_FormClosing);
             this.Load += new System.EventHandler(this.GeneralNotesEditForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtExpression.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResult.Properties)).EndInit();
